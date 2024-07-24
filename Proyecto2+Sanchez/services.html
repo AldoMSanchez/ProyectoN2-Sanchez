@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios de JavaScript</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Vincular con el archivo de estilos CSS si existe -->
+</head>
+<body>
+    <h1>Servicios de JavaScript</h1>
+
+    <h2>Objeto Persona</h2>
+    <pre id="persona-output"></pre>
+    
+    <h2>Objeto Bebida</h2>
+    <pre id="bebida-output"></pre>
+    
+    <h2>Usuarios en Redes Sociales</h2>
+    <pre id="usuarios-output"></pre>
+    
+    <h2>Bebidas con IVA</h2>
+    <pre id="bebidas-iva-output"></pre>
+    
+    <h2>Clase Persona</h2>
+    <pre id="persona-clase-output"></pre>
+    
+    <h2>Arrays y Manipulación</h2>
+    <pre id="arrays-output"></pre>
+
+    <h2>Funciones de Orden Superior y Transformación</h2>
+    <pre id="funciones-output"></pre>
+
+    <script type="module">
+        import { persona, bebida, UsuarioIG, CrearBebida, Persona, porCadaUno, obtenerDatos } from './services.js';
+
+        // Mostrar objeto persona
+        document.getElementById('persona-output').textContent = `
+            ${JSON.stringify(persona, null, 2)}
+            ${persona.apellido}, ${persona.nombre}
+            ${persona.estaCasado()}
+        `;
+
+        // Modificar y mostrar información de la bebida
+        bebida.actualizar("Coca Cola 2L", 2000);
+        document.getElementById('bebida-output').textContent = `
+            ${bebida.mostrarInfo()}
+        `;
+
+        // Mostrar usuarios
+        const { usuario1, usuario2 } = obtenerDatos();
+        document.getElementById('usuarios-output').textContent = `
+            Usuario 1: ${JSON.stringify(usuario1, null, 2)}
+            Usuario 2: ${JSON.stringify(usuario2, null, 2)}
+        `;
+
+        // Mostrar bebidas con IVA
+        const { bebida1, bebida2 } = obtenerDatos();
+        bebida1.descripcion = "Bebida Cola con Azúcar";
+        document.getElementById('bebidas-iva-output').textContent = `
+            Bebida 1: ${JSON.stringify(bebida1, null, 2)}
+            Bebida 2: ${JSON.stringify(bebida2, null, 2)}
+        `;
+
+        // Mostrar clase persona
+        const { persona1 } = obtenerDatos();
+        persona1.pasarAMayuscula();
+        document.getElementById('persona-clase-output').textContent = `
+            ${JSON.stringify(persona1, null, 2)}
+            Saludo: ${persona1.saludar()}
+        `;
+
+        // Mostrar arrays
+        const { lista, lista1, lista2 } = obtenerDatos();
+        document.getElementById('arrays-output').textContent = `
+            Lista: ${JSON.stringify(lista, null, 2)}
+            Lista1: ${JSON.stringify(lista1, null, 2)}
+            Lista2: ${JSON.stringify(lista2, null, 2)}
+        `;
+
+        // Funciones de orden superior y transformación
+        const { numerosArray2, nombresArray2, cursos } = obtenerDatos();
+        const numerosDoble = [];
+        porCadaUno(numerosArray2, valor => numerosDoble.push(valor * 2));
+        document.getElementById('funciones-output').textContent = `
+            Números Dobles: ${JSON.stringify(numerosDoble, null, 2)}
+            Cursos: ${JSON.stringify(cursos, null, 2)}
+        `;
+    </script>
+</body>
+</html>
